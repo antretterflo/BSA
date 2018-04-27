@@ -1,0 +1,41 @@
+---
+title: "Documentation of WUFI Parametric Simulation for BSA"
+output:
+  html_document:
+    df_print: paged
+---
+
+## 2018-04-23 First start with parametric simulation
+
+Added a first test, if parametric simulations are possible. Used some code from previous projects to read/modify WUFI Plus data, write XMLs and create batch files as well as to read WUFI Plus results files.
+
+The general approach works. However, generating purely probabilistic and independent inputs does not work. The uncertainties cancel each other out and all results distributions do look very much alike. 
+Therefore the next steps might include:
+
+* identify required inputs and their correlations
+* generate subfolders for each input profile that reflects correlations
+* select data from subfolders and run simulations
+
+In a discussion with Joshua New, he pointed out that Titan only runs Linux modules and you need to show why runnuning those simulations on other clusters does not make sense. So for our case this is probably not applicable.
+We can look if the cluster under cades.ornl.gov may make sense for us.
+
+## 2018-04-25 Comments on the approach
+
+Generated subfolders in Data/In for all boundary conditions. To fill those folders, this might be approaches:
+
+* Climate: 
+    + Use the existing multi year climate sets for some locations
+    + Generate script to load data from NOAA and modify as wac file
+* Interior Loads:
+    + Use GIHM tool to generate interior loads profiles, do not forget CO2 for predicitive analysis
+    + Use simplified versions of load profiles with a multiplication factor
+* Ventilation:
+    + Generate code to compute hourly ventilation rates based on outdoor conditions and airtightness (LBNL approach)
+    + Use the air-flow model to compute ventilation rates (but window opening etc. will be very hard to add)
+* Set Points:
+    + use simplified set point profiles and adjustment addition
+    + generate dynamic setpoint schedules based on outdoor climate
+  
+## 2018-04-26 
+
+The method must probably include, that first a climate is selected (randomly) and based on this climate, infiltration, interior loads and set-points are computed.
