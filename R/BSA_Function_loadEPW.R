@@ -29,7 +29,7 @@ loadEPWheader <- function(v.Path) {
                         "Latitude",
                         "Longitude",
                         "Timezone",
-                        "Eleation")
+                        "Elevation")
   
   return(epwHeader)
 }
